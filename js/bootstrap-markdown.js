@@ -267,7 +267,10 @@
           })
         }
 
-        editor.append(editorHeader)
+          if (options.headerLocation === 'top') {
+            editor.append(editorHeader)
+          }
+
 
         // Wrap the textarea
         if (container.is('textarea')) {
@@ -286,6 +289,11 @@
                       })
 
           editor.append(textarea)
+
+          if (options.headerLocation !== 'top') {
+            editor.append(editorHeader)
+          }
+
 
           // Save the editable
           editable.el = container
@@ -892,6 +900,7 @@
     iconlibrary: 'glyph',
     language: 'en',
     initialstate: 'editor',
+    headerLocation: 'top'
 
     /* Buttons Properties */
     buttons: [
@@ -1043,7 +1052,7 @@
 
             if (link != null && link != '' && link != 'http://' && link.substr(0,4) == 'http') {
               var sanitizedLink = $('<div>'+link+'</div>').text()
-              
+
               // transform selection and set the cursor into chunked text
               e.replaceSelection('!['+chunk+']('+sanitizedLink+' "'+e.__localize('enter image title here')+'")')
               cursor = selected.start+2
